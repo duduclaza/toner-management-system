@@ -1,0 +1,157 @@
+Módulo : Cadastros Gerais
+ 
+Toners:
+Formulário: 
+Modelo:
+Peso Cheio:
+Peso Vazio:
+Gramatura: ( sistema calcula automaticamente peso cheio - peso vazio)
+Capacidade:
+Gramatura por folha: ( sistema calcula automaticamente gramatura dividio pela capacidade)
+Preço:
+Preço por folha: ( sistema calcula automaticamente  preço dividivo pela capacidade)
+Cor: ( Black,Cyan,Magenta,Yellow)
+Tipo:( Compativel,Original,Remanufaturado)
+ 
+Status de Garantia:
+Formulário:
+Status:  input para a pessoa adicionar , ( deixar esses ja  cadastrados no sistema Aguardando envio para fornecedor, Aguardando Coleta,Aguardando Retorno do Fornecedor, Em processo, Virou Devolução de Crédito, Virou concerto,Virou Troca,Garantia Expirada,Garantia Não Aceita)
+
+Status de Homologações:
+Formulário: 
+Status:  input para a pessoa adicionar mais  , ( deixe esses ja cadastrado no sistema Aprovado , Reprovado Em Andamento)
+
+
+Títulos de POP/IT:
+Formulário: 
+Títulos de  POP/IT
+
+Títulos de Processos:
+Formulário: 
+Título de Processos
+
+Fornecedores: 
+nome do fornecedor abaixo grid para editar ou excluir link do RMA, telefone de contato
+
+
+Módulo: Retornados
+
+Formulário:
+Selecione um Modelo: ( Aqui o sistema trás o modelo que já temos cadastrado em toners e os detalhes )
+Código do Cliente: ( Aqui o colaborador digita o código  do cliente
+Filial: ( aqui  o sistema já mostra as filiais que tem cadastradas )
+
+
+Peso do Retornado:
+
+Quando   a pessoa coloca o peso do retornado o sistema pega esse peso compara com o peso vazio do modelo cadastrado e vê a gramatura presente e ai o sistema compara com a gramatura registrada e de acordo com  a % da gramatura presente o sistema da 4 orientações.
+
+Se a gramatura estiver  de 0% - 5%  Orientação: Descarte o toner. 
+Se a gramatura estiver  de 6% - 40%  Orientação: Teste o toner se estiver com qualidade boa use internamente se não descarte o toner. 
+Se a gramatura estiver  de 41% - 80%  Orientação: Teste o toner se estiver com qualidade boa envie para o estoque como semi novo e com  % descrita na caixa e envie para a garantia.
+Se a gramatura estiver  de 81% - 100%  Orientação: Teste o toner se estiver com qualidade boaenvie para o estoque como novo  se não envie para garantia. 
+
+
+Após a pessoa ler as orientações ela deve selecionar um dos destinos representados por boões ao apertar um dos botões se abilita o botão de registrar toner. 
+Descarte (sistema registra apenas modelo,  id do cliente, nome do cliente, destino final escolhido, filial)
+Estoque(sistema registra apenas modelo,  id do cliente, nome do cliente, destino final escolhido, filial, Valor em R$ recuperado o sistema com base na gramatura calcula quantidade de folhar e multiplica pelo  preço por página para saber)
+Garantia, (sistema registra apenas modelo,  id do cliente, nome do cliente, destino final escolhido, filial)
+Uso Interno (sistema registra apenas modelo,  id do cliente, nome do cliente, destino final escolhido, filial)
+
+Abaixo o Grid bem organizado e com as a??es editar, excluir quando clicar em editar abre um modal do formulário  e quando clicado em exclui abre um modal perguntando se deseja excluir. o nosso grid tbm possui uma busca e botões exportar por período de registro.
+
+
+Módulo : Garantias
+Registro de Garantia
+(Formulário)
+1º Item:    Quantidade: Descrição do Defeito: Valor Unitário:  Valor total: Automático  "sinal de + caso a pessoa queira add outro item"
+
+Nº da Nf de compras: , anexo da nf em  pdf
+Fornecedor:( sistema mostra os fornecedores cadastrados) 
+Status da Garantia ( sistema lista os  status da garantia cadastrados)
+Nº da Nf de simples remessa, anexo da nf de simples remessa pdf
+Nº da Nf de devolução, anexo da nf de devolução  pdf
+N/s : Opcional
+Lote : Opcional
+Ticket / OS do Fornecedor: Opcional
+
+Abaixo o Grid bem organizado e com as ações editar, excluir quando clicar em editar abre um modal do formulário  e quando clicado em exclui abre um modal perguntando se deseja excluir. o nosso grid tbm possui uma busca e botão de exportar por período de registro.
+
+
+Módulo : Amostragens
+Formulário:
+número da nf e anexo pdf 
+aprovado , não aprovado , aprovado parcialmente.
+iten1 , quantidade aprovada
+iten2, quantidade aprovada ... aqui coloque sinal de + para as pessoas ir adicionando mais itens.
+
+Abaixo o Grid bem organizado e com as a??es editar, excluir quando clicar em editar abre um modal do formulário  e quando clicado em exclui abre um modal perguntando se deseja excluir. o nosso grid tbm possui uma busca e bot?o de exportar por período de registro.
+
+
+Módulo : Homologações
+número da nf e anexo pdf
+aprovado , não aprovado
+observações
+
+
+Módulo : Certificados
+
+Nome do Certificado 
+data do certificado 
+anexo pdf 
+
+Abaixo grid dos certificados anexados e pesquisa , editar excluir ou exportar  por periodo download do pdf
+
+
+Módulo : POP/IT
+Registro de POP/IT
+POP/IT Pendente Revisão ( se aprovado vai pra POP/IT Aprovados se ja tiver um titulo igual aprovado o sistema versiona o arquivo para v2,v3 ...  se foi rejeitado volta para Registro de POP/IT COMO REPROVADO e o motivo
+POP/IT Aprovados ( grid com opção de excluir )
+Visualização de POP/IT
+
+Módulo : Processos
+Registro de Processos
+Processos Pendente Revisão( se aprovado vai pra POP/IT Aprovados se já tiver um titulo igual aprovado o sistema versiona o arquivo para v2,v3 ... se foi rejeitado volta para Registro de POP/IT COMO REPROVADO e o motivo
+POP/IT Aprovados ( grid com opção de excluir )
+Visualização de Processos
+
+
+Módulo : Auditorias
+
+Filial auditada (sistema trás as filiais existentes)
+Anexo PDF
+Periodo da auditoria dd.mm.aaa x dd.mm.aaa
+
+
+
+
+Módulo : Dinâmicas
+Sub Menus
+5s
+DISC
+
+
+
+Módulo : Configurações.  
+Submódulo: Cadastros Administrativos
+Sub Menus
+  Filiais: Nome da Filial abaixo o grid para editar ou excluir
+  Setores: nome do setor abaixo o grid pra editar ou excluir
+ 
+
+Submódulo Cadastro de usuário:
+Nome:
+E-mail:
+Senha:
+Permissão( excluir, editar, exportar, gravar,vizualizar)
+Acesso a quais módulos: ( liste os modulos e sub modulos o que tiver ticado a pessoa acessa o que nao tiver ela nao ve no menu)
+
+Submódulo Configuração de SMTP
+
+Os usuarios podem clicar em esqueceu a senha e o sistema manda uma nova para eles no email cadastrado
+assim o sistema usara o smtp configurado para mandar o e-mail pro usuário
+
+ crie 3 perfil de smtp um pro microsoft, um pro gmail e um personalizado pro adm  preencher um dos 3 e salvar como configuração de envio de emails
+
+crie tbm  configuração do ad do azure para caso o colaborador quiser entrar autenticado pelo microsoft no login alem de email e senha a pessoa ttbm precisa ter a opção de 
+logar com conta do office365. 
