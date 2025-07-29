@@ -256,7 +256,7 @@ export class MemStorage implements IStorage {
     
     // Recalculate derived fields
     if (tonerData.pesocheio !== undefined || tonerData.pesovazio !== undefined) {
-      updatedData.gramatura = updatedData.pesoqueio - updatedData.pesovazio;
+      updatedData.gramatura = updatedData.pesocheio - updatedData.pesovazio;
     }
     if (tonerData.capacidade !== undefined || updatedData.gramatura !== toner.gramatura) {
       updatedData.gramaturaFolha = updatedData.gramatura / updatedData.capacidade;

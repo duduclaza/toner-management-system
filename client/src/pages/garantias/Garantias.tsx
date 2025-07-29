@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { DataTable } from "@/components/ui/data-table";
-import { GarantiaForm } from "@/components/forms/GarantiaForm";
+import { GarantiaFormNew } from "@/components/forms/GarantiaFormNew";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -258,7 +258,7 @@ export default function Garantias() {
       </Card>
 
       {/* Garantia Form */}
-      <GarantiaForm
+      <GarantiaFormNew
         isOpen={garantiaFormOpen}
         onClose={() => setGarantiaFormOpen(false)}
         onSubmit={handleGarantiaSubmit}

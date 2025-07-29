@@ -1,7 +1,12 @@
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { BarChart } from "@/components/charts/BarChart";
 import { TrendingUp, TrendingDown, DollarSign, Shield, RotateCcw, Package } from "lucide-react";
 import type { DashboardStats, Activity, Alert } from "@/types";
+import type { Filial } from "@shared/schema";
 
 // Mock data - would come from API in real app
 const stats: DashboardStats = {
@@ -51,11 +56,70 @@ const pendingAlerts: Alert[] = [
 ];
 
 export default function Dashboard() {
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear().toString());
+  const [selectedFilial, setSelectedFilial] = useState("all");
+
+  // Query for filiais
+  const { data: filiais = [] } = useQuery<Filial[]>({
+    queryKey: ["/api/filiais"],
+  });
+
+  // Mock data for charts - would come from API with filters
+  const retornadosPorMes = [
+    { name: "Jan", retornados: 12, garantias: 8 },
+    { name: "Fev", retornados: 19, garantias: 15 },
+    { name: "Mar", retornados: 25, garantias: 12 },
+    { name: "Abr", retornados: 18, garantias: 20 },
+    { name: "Mai", retornados: 32, garantias: 25 },
+    { name: "Jun", retornados: 28, garantias: 18 },
+  ];
+
+  const garantiasPorFornecedor = [
+    { name: "HP", garantias: 45, valor: 12500 },
+    { name: "Canon", garantias: 32, valor: 8900 },
+    { name: "Epson", garantias: 28, valor: 7200 },
+    { name: "Brother", garantias: 15, valor: 4100 },
+    { name: "Samsung", garantias: 12, valor: 3200 },
+  ];
+
   return (
     <div className="space-y-8">
       <div>
         <h2 className="text-2xl font-bold text-gray-900 mb-2">Dashboard</h2>
         <p className="text-gray-600">Visão geral do sistema</p>
+      </div>
+
+      {/* Filters */}
+      <div className="flex space-x-4">
+        <div>
+          <label className="text-sm font-medium text-gray-700 mb-1 block">Ano</label>
+          <Select value={selectedYear} onValueChange={setSelectedYear}>
+            <SelectTrigger className="w-32">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="2023">2023</SelectItem>
+              <SelectItem value="2024">2024</SelectItem>
+              <SelectItem value="2025">2025</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <label className="text-sm font-medium text-gray-700 mb-1 block">Filial</label>
+          <Select value={selectedFilial} onValueChange={setSelectedFilial}>
+            <SelectTrigger className="w-48">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Todas as Filiais</SelectItem>
+              {filiais.map((filial) => (
+                <SelectItem key={filial.id} value={filial.id}>
+                  {filial.nome}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
       
       {/* Stats Cards */}
@@ -141,6 +205,43 @@ export default function Dashboard() {
         </Card>
       </div>
       
+      {/* Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Returns and Warranties by Month */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Retornados e Garantias por Mês ({selectedYear})</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <BarChart
+              data={retornadosPorMes}
+              dataKeys={[
+                { key: "retornados", name: "Retornados", color: "#06b6d4" },
+                { key: "garantias", name: "Garantias", color: "#f59e0b" }
+              ]}
+              height={300}
+            />
+          </CardContent>
+        </Card>
+
+        {/* Warranties by Supplier */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Garantias por Fornecedor ({selectedYear})</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <BarChart
+              data={garantiasPorFornecedor}
+              dataKeys={[
+                { key: "garantias", name: "Quantidade", color: "#10b981" },
+                { key: "valor", name: "Valor (R$)", color: "#3b82f6" }
+              ]}
+              height={300}
+            />
+          </CardContent>
+        </Card>
+      </div>
+
       {/* Activity and Alerts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <Card>

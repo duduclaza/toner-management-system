@@ -24,6 +24,8 @@ import {
 } from "@/components/ui/select";
 import { Plus, Users, Target, FileText, Calendar, TrendingUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { DISCQuestionnaire } from "./DISCQuestionnaire";
+import { CincoSDynamics } from "./CincoSDynamics";
 
 interface Dinamica5S {
   id: string;
@@ -55,6 +57,8 @@ export default function Dinamicas() {
   const [activeTab, setActiveTab] = useState("5s");
   const [form5SOpen, setForm5SOpen] = useState(false);
   const [formDISCOpen, setFormDISCOpen] = useState(false);
+  const [discQuestionnaireOpen, setDiscQuestionnaireOpen] = useState(false);
+  const [cincoSDynamicsOpen, setCincoSDynamicsOpen] = useState(false);
 
   // 5S Form State
   const [area5S, setArea5S] = useState("");
@@ -128,6 +132,24 @@ export default function Dinamicas() {
     setPontuacaoS(0);
     setPontuacaoC(0);
     setObservacoesDISC("");
+  };
+
+  const handleDISCQuestionnaireComplete = (results: any) => {
+    // TODO: Submit to API
+    toast({ 
+      title: "Avaliação DISC concluída!", 
+      description: `Perfil identificado: ${results.perfilPrimario}` 
+    });
+    setDiscQuestionnaireOpen(false);
+  };
+
+  const handleCincoSComplete = (results: any) => {
+    // TODO: Submit to API
+    toast({ 
+      title: "Avaliação 5S concluída!", 
+      description: `Pontuação: ${results.pontuacao}%` 
+    });
+    setCincoSDynamicsOpen(false);
   };
 
   const getPontuacaoBadge = (pontuacao: number) => {
@@ -292,10 +314,16 @@ export default function Dinamicas() {
                   Avaliação da metodologia 5S (Seiri, Seiton, Seiso, Seiketsu, Shitsuke)
                 </p>
               </div>
-              <Button onClick={() => setForm5SOpen(true)}>
-                <Plus className="h-4 w-4 mr-2" />
-                Nova Avaliação 5S
-              </Button>
+              <div className="space-x-2">
+                <Button onClick={() => setCincoSDynamicsOpen(true)}>
+                  <Target className="h-4 w-4 mr-2" />
+                  Questionário 5S
+                </Button>
+                <Button variant="outline" onClick={() => setForm5SOpen(true)}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Registro Manual
+                </Button>
+              </div>
             </div>
 
             <DataTable
@@ -315,10 +343,16 @@ export default function Dinamicas() {
                   Avaliação de perfil comportamental DISC (Dominância, Influência, Estabilidade, Conformidade)
                 </p>
               </div>
-              <Button onClick={() => setFormDISCOpen(true)}>
-                <Plus className="h-4 w-4 mr-2" />
-                Nova Avaliação DISC
-              </Button>
+              <div className="space-x-2">
+                <Button onClick={() => setDiscQuestionnaireOpen(true)}>
+                  <Users className="h-4 w-4 mr-2" />
+                  Questionário DISC
+                </Button>
+                <Button variant="outline" onClick={() => setFormDISCOpen(true)}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Registro Manual
+                </Button>
+              </div>
             </div>
 
             <DataTable
@@ -532,6 +566,20 @@ export default function Dinamicas() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* DISC Questionnaire */}
+      <DISCQuestionnaire
+        isOpen={discQuestionnaireOpen}
+        onClose={() => setDiscQuestionnaireOpen(false)}
+        onComplete={handleDISCQuestionnaireComplete}
+      />
+
+      {/* 5S Dynamics */}
+      <CincoSDynamics
+        isOpen={cincoSDynamicsOpen}
+        onClose={() => setCincoSDynamicsOpen(false)}
+        onComplete={handleCincoSComplete}
+      />
     </div>
   );
 }

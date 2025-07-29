@@ -24,11 +24,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Card, CardContent } from "@/components/ui/card";
 import type { Toner } from "@shared/schema";
 
 const formSchema = z.object({
   modelo: z.string().min(1, "Modelo é obrigatório"),
-  pesoqueio: z.number().min(0.1, "Peso cheio deve ser maior que 0"),
+  pesocheio: z.number().min(0.1, "Peso cheio deve ser maior que 0"),
   pesovazio: z.number().min(0.1, "Peso vazio deve ser maior que 0"),
   capacidade: z.number().min(1, "Capacidade deve ser maior que 0"),
   preco: z.number().min(0.01, "Preço deve ser maior que 0"),
@@ -57,7 +58,7 @@ export function TonerForm({
     resolver: zodResolver(formSchema),
     defaultValues: toner ? {
       modelo: toner.modelo,
-      pesoqueio: toner.pesoqueio,
+      pesocheio: toner.pesocheio,
       pesovazio: toner.pesovazio,
       capacidade: toner.capacidade,
       preco: toner.preco,
@@ -65,7 +66,7 @@ export function TonerForm({
       tipo: toner.tipo as "Original" | "Compatível" | "Remanufaturado",
     } : {
       modelo: "",
-      pesoqueio: 0,
+      pesocheio: 0,
       pesovazio: 0,
       capacidade: 0,
       preco: 0,
@@ -107,7 +108,7 @@ export function TonerForm({
             <div className="grid grid-cols-2 gap-4">
               <FormField
                 control={form.control}
-                name="pesoqueio"
+                name="pesocheio"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Peso Cheio (g)</FormLabel>
@@ -233,6 +234,39 @@ export function TonerForm({
                 )}
               />
             </div>
+            
+            {/* Calculated Fields Display */}
+            <Card className="bg-gray-50">
+              <CardContent className="p-4">
+                <h4 className="text-sm font-semibold text-gray-700 mb-3">Cálculos Automáticos</h4>
+                <div className="grid grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <span className="text-gray-600">Gramatura:</span>
+                    <p className="font-medium">
+                      {(form.watch("pesocheio") - form.watch("pesovazio")).toFixed(1)}g
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">Gramatura por folha:</span>
+                    <p className="font-medium">
+                      {form.watch("capacidade") > 0 
+                        ? ((form.watch("pesocheio") - form.watch("pesovazio")) / form.watch("capacidade")).toFixed(4)
+                        : "0.0000"
+                      }g
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">Preço por folha:</span>
+                    <p className="font-medium">
+                      R$ {form.watch("capacidade") > 0 
+                        ? (form.watch("preco") / form.watch("capacidade")).toFixed(4)
+                        : "0.0000"
+                      }
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
             
             <div className="flex justify-end space-x-3 pt-4">
               <Button type="button" variant="outline" onClick={onClose}>
