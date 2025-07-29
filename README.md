@@ -77,7 +77,7 @@ Um sistema completo de gestão de cartuchos de toner desenvolvido com React, Exp
 
 ### 1. Clone o repositório
 ```bash
-git clone https://github.com/seu-usuario/toner-management-system.git
+git clone https://github.com/duduclaza/toner-management-system.git
 cd toner-management-system
 ```
 
@@ -203,3 +203,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 ---
 
 ⭐ Se este projeto te ajudou, considere dar uma estrela no repositório! 
+=======
+# toner-management-system
+Sistema completo de gestão de cartuchos de toner
+>>>>>>> 753fb2eb7f7a04b6a0e6fbd93a81603ee0a8efd1
